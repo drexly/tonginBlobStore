@@ -51,7 +51,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'polls',
+    'dosirak',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -96,19 +96,32 @@ if os.getenv('SERVER_SOFTWARE', '').startswith('Google App Engine'):
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
-            'HOST': '/cloudsql/<your-project-id>:<your-cloud-sql-instance>',
-            'NAME': '<your-database-name>',
+            'HOST': '/cloudsql/tongin-1302:tongindb',
+            'NAME': 'tongin',
             'USER': 'root',
+            'PASSWORD': '7321',
+        }
+    }
+elif os.getenv('SETTINGS_MODE') == 'prod':
+    # Running in development, but want to access the Google Cloud SQL instance
+    # in production.
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'INSTANCE': '2001:4860:4864:1:21cc:f030:dede:9df5',
+            'NAME': 'tongin',
+            'USER': 'root',
+            'PASSWORD': '7321',
         }
     }
 else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
-            'NAME': '<your-database-name>',
-            'USER': '<your-database-user>',
-            'PASSWORD': '<your-database-password>',
-            'HOST': '<your-database-host>',
+            'NAME': 'tongin',
+            'USER': 'admin',
+            'PASSWORD': '7321',
+            'HOST': 'localhost',
             'PORT': '3306',
         }
     }
@@ -117,9 +130,9 @@ else:
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ko-kr'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Seoul'
 
 USE_I18N = True
 

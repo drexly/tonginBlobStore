@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>음식점 평가</title>
+</head>
+<body>
+<header>
+    <div id="info">
+        <h1>{{ question.question_text }}</h1>
+<ul>
+    <h3>위치:{{ question.location}}</h3>
+    <h3>연락처:{{ question.telephone}}</h3>
+     <h3>{{ question.pub_date}}현재 먹어보고 별점 준사람:{{question.replier}}명</h3>
+    <h4>평점</h4>
+     <li>맛:{{ question.taste}}</li>
+     <li>가격:{{ question.price }}</li>
+    <li>서비스:{{ question.service }}</li>
+     <li>청결도:{{ question.cleanness }}</li>
+     <li>분위기:{{ question.air}}</li>
+     <h4>등록자 리뷰:{{ question.review }}</h4>
+</ul>
+</div>
+</header>
+<section>
+<div id="replies">
+{% if question %}
+    {% for reply in reply_list %}
+       {% if reply.question == question %}
+        [{{reply.name}}님] 맛:{{reply.count_taste}} 가격:{{reply.count_price}} 서비스:{{reply.count_service}} 청결도:{{reply.count_cleanness}} 분위기:{{reply.count_air}}<br>
+        {{reply.rep_date}}작성 한줄평-> {{ reply.reple }}<br><br>
+       {% endif %}
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No polls are available.</p>
+{% endif %}
+</div>
+</section>
+<footer>
+<div id="vote">
+    <form action="{% url 'vote' question.id %}" method="post">
+        {% csrf_token %}
+     <h2>{{ question.question_text }}의 별점을 매겨보세요</h2>
+    <h3>맛<input type="range" name="taste" value="0" min="0" max="5">
+    가격<input type="range" name="price" value="0" min="0" max="5"></h3>
+    <h3>서비스<input type="range" name="service" value="0" min="0" max="5">
+    청결도<input type="range" name="cleanness" value="0" min="0" max="5"></h3>
+    <h3>분위기<input type="range" name="air" value="0" min="0" max="5">작성자<input type="text" name="replier" maxlength="10" autocomplete="on" autofocus="on" required="true" placeholder="이름 써주세요"></h3>
+    <h3>한줄평<input type="text" name="review" maxlength="100" autocomplete="on" autofocus="on" required="true" placeholder="100자 이내 한줄평을 써주세요"><input type="submit" value="매기기"><input type="reset" value="초기화"></h3></form>
+    </div>
+</footer>
+</body>
+</html>

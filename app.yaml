@@ -16,6 +16,7 @@
 # See https://cloud.google.com/appengine/docs/managed-vms/config for details.
 
 # [START django_app]
+application: tongin-1302
 runtime: python27
 api_version: 1
 threadsafe: yes

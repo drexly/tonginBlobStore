@@ -12,12 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from django.conf.urls import include, url
+from django.conf.urls import url,patterns,include
 from django.contrib import admin
-
-from polls.views import index
+from dosirak.views import index
 
 urlpatterns = [
     url(r'^$', index),
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^dosirak/', include('dosirak.urls')),
+
 ]
