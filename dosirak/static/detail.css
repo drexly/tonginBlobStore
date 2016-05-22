@@ -1,0 +1,128 @@
+  @import url("http://fonts.googleapis.com/earlyaccess/nanumgothic.css");
+  /*고정바*/
+#layer_fixed
+{
+    height:30px;
+    width:100%;
+    color: #fff;
+    font-size:25px;
+    position:fixed;
+    z-index:999;
+    top:0px;
+    left:0px;
+    -webkit-box-shadow: 0 1px 2px 0 #777;
+    box-shadow: 0 1px 2px 0 #777;
+    background-color:#111;
+}
+  .trtd a{
+      color: #fff;
+  }
+
+/*SETUP*/
+html {
+  height: 100%;
+  overflow: hidden;
+}
+body {
+  margin:0;
+  padding:0;
+    width: 100%;
+  height: 100%;
+  overflow-y: scroll;
+  overflow-x: hidden;
+    font-family: 'Nanum Gothic', serif;﻿
+  perspective: 1px;
+}
+a:link {
+    text-decoration: none;
+}
+
+a:visited {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+a:active {
+    text-decoration: none;
+}
+/*SECTION PARTS SIZING 전체 파트 사이즈*/
+h1 {
+  font-size: 250%
+}
+
+.header h1{
+  margin-top: -20px;
+    -webkit-text-fill-color: white;
+   -webkit-text-stroke-width: 1px;
+   -webkit-text-stroke-color: blue;
+}
+
+p {
+  font-size: 1.2em;
+  line-height: 100%;
+  color: #333;
+}
+.section {
+  position: relative;
+  padding: 35% 0%;
+  min-height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  box-shadow: 0 5px 1px rgba(0, 0, 0, .7), 0 -5px 1px rgba(0, 0, 0, .7);
+  background: 5% 95% / cover;
+}
+
+
+
+/*SECTION DATA BOXES 박스 내부 사이즈*/
+.text {
+  width: 30%;
+  padding: 10px 10px;
+  border-radius: 5px;
+  background: rgba(240,240,240, .7);
+  box-shadow: 0 0 10px rgba(0, 0, 0, .8);
+  color:black;
+}
+.text h4{
+
+    -webkit-text-fill-color: white;
+}
+
+/*href 로 div 깨져서 속성각각 따로적용*/
+/*.section:nth-child(odd) .text {
+  margin-left: 5px;
+  margin-right: auto;
+}
+
+.section:nth-child(even) .text {
+  margin-left: auto;
+  margin-right: 5px;
+}*/
+
+.header, .footer {
+  text-align: center;
+  font-size: 130%;
+  color: #fff;
+  text-shadow: 0 2px 2px #000;
+}
+
+/*SECTION IMAGES*/
+#title {
+background: #f8f5e3;
+  background-attachment: fixed;
+  background-image:url("http://tonginmarket.co.kr/mall/board_data/notice/new%B0%A1%B8%CD%C1%A1%B9%E8%C4%A1%B5%B5_copy.jpg");
+  background-size: contain; background-repeat: no-repeat;
+ z-index: -2;
+  /*     -webkit-text-fill-color: white;
+   -webkit-text-stroke-width: 1px;
+   -webkit-text-stroke-color: blue;*/
+}
+
+#footer{
+    padding: 5% 0%;
+  min-height: 0%;
+  background: #111;
+}

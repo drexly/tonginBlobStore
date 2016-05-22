@@ -3,9 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>투표완료</title>
+        {% load static from staticfiles %}
+    <link rel="stylesheet"  type="text/css" href="{% static "detail.css" %}">
 </head>
 <body>
-투표완료되었습니다
-<meta http-equiv="refresh" content="1;url=/dosirak/{{ question.id }}/">
+<div id="title" class="section header" style="background-image: none;background-color: greenyellow" >
+<h1>투표가 정상적으로 완료되었습니다<br>휴대전화번호를 기입하고 정성껏 써주신 분에 한해<br>추후 사은품 안내를 SMS로 발송해드리겠습니다</h1></div>
+<meta http-equiv="refresh" content="3;url=/dosirak/{{ question.id }}/">
 </body>
 </html>

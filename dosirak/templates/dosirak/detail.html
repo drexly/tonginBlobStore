@@ -1,54 +1,199 @@
 <!DOCTYPE html>
-<html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" Content-Type="text/html">
     <title>음식점 평가</title>
+    {% load static from staticfiles %}
+        {% load assign %}
+    <link rel="stylesheet"  type="text/css" href="{% static "detail.css" %}">
+    <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <!--link rel="stylesheet" href="{% static "bootstrap-3.3.6/css/bootstrap.css" %}"-->
+    <link rel="stylesheet" href="{% static "bootstrap-3.3.6/css/bootstrap-responsive.css" %}">
+    <script src="{% static "bootstrap-3.3.6/js/bootstrap.js" %}"></script>
+    <script src="{% static "bootstrap-3.3.6/js/bootstrap-formhelpers-phone.js" %}"></script>
+    <!--script src="http://code.jquery.com/jquery-1.11.3.min.js"></script-->
+    <!--meta name="viewport" content="width=device-width, initial-scale=1"-->
 </head>
-<body>
-<header>
-    <div id="info">
-        <h1>{{ question.question_text }}</h1>
-<ul>
-    <h3>위치:{{ question.location}}</h3>
-    <h3>연락처:{{ question.telephone}}</h3>
-     <h3>{{ question.pub_date}}현재 먹어보고 별점 준사람:{{question.replier}}명</h3>
-    <h4>평점</h4>
-     <li>맛:{{ question.taste}}</li>
-     <li>가격:{{ question.price }}</li>
-    <li>서비스:{{ question.service }}</li>
-     <li>청결도:{{ question.cleanness }}</li>
-     <li>분위기:{{ question.air}}</li>
-     <h4>등록자 리뷰:{{ question.review }}</h4>
-</ul>
-</div>
-</header>
-<section>
-<div id="replies">
-{% if question %}
-    {% for reply in reply_list %}
-       {% if reply.question == question %}
-        [{{reply.name}}님] 맛:{{reply.count_taste}} 가격:{{reply.count_price}} 서비스:{{reply.count_service}} 청결도:{{reply.count_cleanness}} 분위기:{{reply.count_air}}<br>
-        {{reply.rep_date}}작성 한줄평-> {{ reply.reple }}<br><br>
-       {% endif %}
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No polls are available.</p>
-{% endif %}
-</div>
-</section>
-<footer>
-<div id="vote">
-    <form action="{% url 'vote' question.id %}" method="post">
-        {% csrf_token %}
-     <h2>{{ question.question_text }}의 별점을 매겨보세요</h2>
-    <h3>맛<input type="range" name="taste" value="0" min="0" max="5">
-    가격<input type="range" name="price" value="0" min="0" max="5"></h3>
-    <h3>서비스<input type="range" name="service" value="0" min="0" max="5">
-    청결도<input type="range" name="cleanness" value="0" min="0" max="5"></h3>
-    <h3>분위기<input type="range" name="air" value="0" min="0" max="5">작성자<input type="text" name="replier" maxlength="10" autocomplete="on" autofocus="on" required="true" placeholder="이름 써주세요"></h3>
-    <h3>한줄평<input type="text" name="review" maxlength="100" autocomplete="on" autofocus="on" required="true" placeholder="100자 이내 한줄평을 써주세요"><input type="submit" value="매기기"><input type="reset" value="초기화"></h3></form>
+
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<body >
+<div id="layer_fixed">
+    <table cellspacing="0" cellpadding="0" style="width:100%; height:100%;">
+    <tr class="trtd">
+       <td style="vertical-align:middle; padding-left: 20px; padding-right: 20px;">
+        <td><a href="/">처음 으로</a></td>
+        <td><a href="#map" onclick="document.getElementById('map').scrollIntoView(true);return false;">지도 보기</a></td>
+        <td><a href="#star" onclick="document.getElementById('star').scrollIntoView(true);return false;">평점 보기</a></td>
+        <td><a href="#footer" onclick="document.getElementById('footer').scrollIntoView(true);return false;">리뷰 하기</a></td>
+       </td>
+    </tr>
+    </table>
     </div>
-</footer>
+<div id="title" class="section header">
+           <h1>{{ question.question_text }}</h1>
+    <br><br>
+    <div class="text" style="margin: auto;">
+            <h4>위치:{{ question.location}}</h4>
+            <h4><a href="tel:{{ question.telephone }}">연락처:{{ question.telephone}}</a></h4>
+            <a id="star"><h4>최근 리뷰:{{ question.pub_date}}<br>현재 까지 냠냠&리뷰 한 사람: {{reply_length}}명</h4></a>
+        {{ question.review }}</div>
+
+<div style="color:powderblue">
+     <h3>맛 총 평점:{{ question.taste}}/5</h3></a>
+     <h3>가격 총 평점:{{ question.price }}/5</h3>
+     <h3>서비스 총 평점:{{ question.service }}/5</h3>
+     <h3>청결 총 평점:{{ question.cleanness }}/5</h3>
+     <h3>분위기 총 평점:{{ question.air}}/5</h3></div></div>
+
+    {% if question %}
+        {% for reply in reply_list %}
+            <a href="{{ reply.imageR }}" target="_blank">
+                {% if forloop.counter|divisibleby:2 %}
+                    <div id="section{{ forloop.counter }}" class="section" style="background-image:url({{ reply.imageR }});background-attachment: fixed;">
+                    <div class="text" style="margin-left: 5px;margin-right: auto;">
+                          [{{reply.name}}님이 {{reply.rep_date}}에 리뷰]<br>
+             맛:{{reply.count_taste}} 가격:{{reply.count_price}} 서비스:{{reply.count_service}} 청결도:{{reply.count_cleanness}} 분위기:{{reply.count_air}}<br>
+             {{ reply.reple }}<br>
+                    </div>
+                    </div>
+                    {% else %}
+                     <div id="section{{ forloop.counter }}" class="section"  style="background-image:url({{ reply.imageR }}); transform: translateZ(-1px) scale(1); z-index:-1;">
+                    <div class="text"  style="margin-left:auto ;margin-right: 5px;">
+               [{{reply.name}}님이 {{reply.rep_date}}에 리뷰]<br>
+             맛:{{reply.count_taste}} 가격:{{reply.count_price}} 서비스:{{reply.count_service}} 청결도:{{reply.count_cleanness}} 분위기:{{reply.count_air}}<br>
+             {{ reply.reple }}<br>
+                    </div>
+                     </div>
+                {% endif %}
+            </a>
+        {% endfor %}
+    {% else %}
+        <p>No dosiraks are available.</p>
+    {% endif %}
+    <div id="footer" class="section footer">
+       <form action="{{upload_url }}" method="POST" id=post enctype="multipart/form-data">
+            {% csrf_token %}
+         <h2>직접 '{{ question.question_text }}'의 리뷰를 해 보세요!</h2>
+           <h3>실명 기입 안하셔도 되지만 연락처 및 리뷰를 사진과 함께 정성껏 작성하신 분에 한해 통인시장 관련 선물을 드립니다.</h3>
+           <h3>모든 항목 별점은 0보다 커야하며 작성자명과 리뷰내용은 공란이어서는 안됩니다.</h3> <h4>용량이 큰 사진 첨부시 오래걸릴 수 있으니 올리기 버튼 두번 누르지 마세요.</h4>
+         <h4>※휴대전화번호는 공개되지 않으며 SMS를 통한 사은품 발송 용도로만 쓰입니다.</h4>
+                <label for="taste">맛</label>
+    <input type ="range" max="5" min="0"
+        onchange="document.getElementById('taste_label').innerHTML = this.value;"
+        step="1" name="taste" id="taste" value="0">
+    </input>
+    <em id="taste_label"></em><label for="price"> 가격</label>
+    <input type ="range" max="5" min="0"
+        onchange="document.getElementById('price_label').innerHTML = this.value;"
+        step="1" name="price" id="price" value="0">
+    </input>
+    <em id="price_label"></em><label for="service"> 서비스</label>
+    <input type ="range" max="5" min="0"
+        onchange="document.getElementById('service_label').innerHTML = this.value;"
+        step="1" name="service" id="service" value="0">
+    </input>
+    <em id="service_label"></em><label for="cleanness"> 청결도</label>
+    <input type ="range" max="5" min="0"
+        onchange="document.getElementById('cleanness_label').innerHTML = this.value;"
+        step="1" name="cleanness" id="cleanness" value="0">
+    </input>
+    <em id="cleanness_label"></em><label for="air"> 분위기</label>
+    <input type ="range" max="5" min="0"
+        onchange="document.getElementById('air_label').innerHTML = this.value;"
+        step="1" name="air" id="air" value="0">
+    </input>
+    <em id="air_label"></em>
+           <br><br>작성자 <input type="text" name="replier" maxlength="10" autocomplete="on" autofocus="on" required="true" placeholder="이름 써주세요"> 휴대전화 <input type="text" class="input-medium bfh-phone" data-format="010-dddd-dddd" name="phone">
+        <br><br> <textarea form="post"  name="review" form="inform" cols="150" rows="9" autofocus required wrap="hard" maxlength="1000" autocomplete="on" placeholder="리뷰를  1000자 내로 마음 껏 꼭 써주셔야 합니다."></textarea>
+           <input type="hidden" name="qid" value="{{ question.id }}"><!--겁팀장:<i>Underlying Upload Session URL was created by Google NoSQL Blobstore</i><br>-->
+        <h2><input type="file" id="image"  name="image" accept="image/*"><input type="submit"  value="'{{ question.question_text }}' 리뷰 올리기"/>   <input type="reset" value="리뷰 초기화"></h2>
+           <br><h5>겁쟁이사자 통인시장 Powered by Django On Google Cloud Platform <br><br>Featured with Google App Engine+Google NoSQL Datastore via BlobStore API+Daum RoadView API</h5>
+           <h6>Developed Ⓓ by 김주현 2016 All Rights Reserved.</h6>
+           <script type="text/javascript">
+  </script>
+      </form>
+        </div>
+        <div class="map_wrap" style="overflow:hidden;height:700px;background: #111;min-height: 0%;padding:0% 0%;">
+    <div id="mapWrapper" style="width:50%;height:700px;float:left">
+        <div id="map" style="width:100%;height:100%"></div> <!-- 지도를 표시할 div 입니다 -->
+    </div>
+    <div id="rvWrapper" style="width:50%;height:700px;float:left">
+        <div id="roadview" style="width:100%;height:100%"></div> <!-- 로드뷰를 표시할 div 입니다 -->
+    </div>
+</div>
+<script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=bc00c31732663855acc78807ba0669ea"></script>
+<script>
+var mapWrapper = document.getElementById('mapWrapper'); //지도를 감싸고 있는 DIV태그
+
+var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+    mapCenter = new daum.maps.LatLng({{ gpsx }} , {{ gpsy }}), // 지도의 가운데 좌표
+    mapOption = {
+        center: mapCenter, // 지도의 중심좌표
+        level: 1 // 지도의 확대 레벨
+    };
+
+// 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
+var map = new daum.maps.Map(mapContainer, mapOption);
+map.addOverlayMapTypeId(daum.maps.MapTypeId.ROADVIEW); //지도 위에 로드뷰 도로 올리기
+
+var rvContainer = document.getElementById('roadview'); //로드뷰를 표시할 div
+var rv = new daum.maps.Roadview(rvContainer); //로드뷰 객체
+var rvClient = new daum.maps.RoadviewClient(); //좌표로부터 로드뷰 파노ID를 가져올 로드뷰 helper객체
+
+toggleRoadview(mapCenter);
+
+// 마커 이미지를 생성합니다.
+var markImage = new daum.maps.MarkerImage(
+        'http://i1.daumcdn.net/localimg/localimages/07/mapapidoc/roadview_wk.png',
+        new daum.maps.Size(35,39),
+        {
+            //마커의 좌표에 해당하는 이미지의 위치를 설정합니다.
+            //이미지의 모양에 따라 값은 다를 수 있으나, 보통 width/2, height를 주면 좌표에 이미지의 하단 중앙이 올라가게 됩니다.
+            offset: new daum.maps.Point(14, 39)
+        }
+);
+
+// 드래그가 가능한 마커를 생성합니다.
+var rvMarker = new daum.maps.Marker({
+    image : markImage,
+    position: mapCenter,
+    draggable: true,
+    map: map
+});
+
+//마커에 dragend 이벤트를 할당합니다
+daum.maps.event.addListener(rvMarker, 'dragend', function(mouseEvent) {
+    var position = rvMarker.getPosition(); //현재 마커가 놓인 자리의 좌표
+    toggleRoadview(position); //로드뷰를 토글합니다
+});
+
+//지도에 클릭 이벤트를 할당합니다
+daum.maps.event.addListener(map, 'click', function(mouseEvent){
+
+    // 현재 클릭한 부분의 좌표를 리턴
+    var position = mouseEvent.latLng;
+
+    rvMarker.setPosition(position);
+    toggleRoadview(position); //로드뷰를 토글합니다
+});
+
+//로드뷰 toggle함수
+function toggleRoadview(position){
+
+    //전달받은 좌표(position)에 가까운 로드뷰의 panoId를 추출하여 로드뷰를 띄웁니다
+    rvClient.getNearestPanoId(position, 50, function(panoId) {
+        if (panoId === null) {
+            rvContainer.style.display = 'none'; //로드뷰를 넣은 컨테이너를 숨깁니다
+            mapWrapper.style.width = '100%';
+            map.relayout();
+        } else {
+            mapWrapper.style.width = '50%';
+            map.relayout(); //지도를 감싸고 있는 영역이 변경됨에 따라, 지도를 재배열합니다
+            rvContainer.style.display = 'block'; //로드뷰를 넣은 컨테이너를 보이게합니다
+            rv.setPanoId(panoId, position); //panoId를 통한 로드뷰 실행
+            rv.relayout(); //로드뷰를 감싸고 있는 영역이 변경됨에 따라, 로드뷰를 재배열합니다
+        }
+    });
+}
+</script>
 </body>
 </html>

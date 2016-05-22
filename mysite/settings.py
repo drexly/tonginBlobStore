@@ -55,6 +55,7 @@ INSTALLED_APPS = (
 )
 
 MIDDLEWARE_CLASSES = (
+    'google.appengine.ext.ndb.django_middleware.NdbDjangoMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -63,6 +64,9 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'dosirak.middleware.DisableCSRF',
+
+
 )
 
 ROOT_URLCONF = 'mysite.urls'
@@ -118,8 +122,8 @@ else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'tongin',
-            'USER': 'admin',
+            'NAME': 'tongint',
+            'USER': 'root',
             'PASSWORD': '7321',
             'HOST': 'localhost',
             'PORT': '3306',
@@ -146,3 +150,31 @@ USE_TZ = True
 
 STATIC_ROOT='static'
 STATIC_URL = '/static/'
+# Additional locations of static files
+STATICFILES_DIRS = (
+    # Put strings here, like "/home/html/static" or "C:/www/django/static".
+    # Always use forward slashes, even on Windows.
+    # Don't forget to use absolute paths, not relative paths.
+    (os.path.join(os.path.dirname(__file__),''),"",)
+)
+
+# List of finder classes that know how to find static files in
+# various locations.
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+#    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+)
+
+MEDIA_ROOT='upload'
+MEDIA_URL='/upload/'
+MEDIAFILES_DIRS = (
+    # Put strings here, like "/home/html/static" or "C:/www/django/static".
+    # Always use forward slashes, even on Windows.
+    # Don't forget to use absolute paths, not relative paths.
+    (os.path.join(os.path.dirname(__file__),''),"",)
+)
+#GOOGLE_CLOUD_STORAGE_BUCKET = '/tongin' # the name of the bucket you have created from the google cloud storage console
+#GOOGLE_CLOUD_STORAGE_URL = 'http://storage.googleapis.com/bucket' #whatever the ulr for accessing your cloud storgage bucket
+#GOOGLE_CLOUD_STORAGE_DEFAULT_CACHE_CONTROL = 'public, max-age: 7200' # default cache control headers for your files
+#DEFAULT_FILE_STORAGE = 'google.storage.googleCloud.GoogleCloudStorage'

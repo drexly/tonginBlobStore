@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="DataSourceManagerImpl" format="xml" hash="2444289044">
-    <data-source source="LOCAL" name="MySQL - tongin@localhost" uuid="11ac06e7-64d4-4781-81a0-1214a0726e23">
+  <component name="DataSourceManagerImpl" format="xml" hash="2479744862">
+    <data-source source="LOCAL" name="MySQL - tongint@localhost" uuid="0fb533cc-8425-4cf4-90c9-45cff7acd0a8">
       <driver-ref>mysql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://localhost:3306/tongin</jdbc-url>
+      <jdbc-url>jdbc:mysql://localhost:3306/tongint</jdbc-url>
       <driver-properties>
         <property name="autoReconnect" value="true" />
         <property name="zeroDateTimeBehavior" value="convertToNull" />
