@@ -18,6 +18,7 @@ import webapp2
 from dosirak.baseView import BaseView
 from dosirak.blobstore import get_uploads
 from google.appengine.ext.webapp import template
+from django.contrib.staticfiles.templatetags.staticfiles import static
 
 
 # This datastore model keeps track of which users uploaded which photos.
@@ -148,11 +149,40 @@ class ViewPhotoHandler(blobstore_handlers.BlobstoreDownloadHandler):
 
 def index(request):
     question_list=Question.objects.order_by('-pub_date')[:]
+    question_list_t=Question.objects.order_by('-taste')[:]
+    question_list_p=Question.objects.order_by('-price')[:]
+    question_list_s=Question.objects.order_by('-service')[:]
+    question_list_c=Question.objects.order_by('-cleanness')[:]
+    question_list_a=Question.objects.order_by('-air')[:]
+    question_list_r=Question.objects.order_by('-replier')[:]
+    question_list_x=Question.objects.order_by('id')[:]
+    replies=Reply.objects.order_by('-id')[:]
+    total=[]
+    star=[0.4,1.4,2.4,3.4,4.4]
+    repimg={}
+    for y in question_list_x:
+        f=True
+        for rimg in replies:
+            if y.id == rimg.question_id and rimg.imageR != '/':
+                    repimg[y.id]=rimg.imageR
+                    f=False
+                    break
+        if f:
+           repimg[y.id]=static('noimg.png')
+    #총점순+리플정렬
+    for x in question_list_x:
+        all=float(x.taste+x.price+x.service+x.cleanness+x.air)
+        say=""
+        for rp in replies:
+            if x.id==rp.question_id:
+                say+=(rp.reple+" ")
+        total.append([x.id,all,say,x.question_text])
+    totalsorted=sorted(total,key=lambda total:-total[1] )
     #template = loader.get_template('dosirak/index.html')
     #context = RequestContext(request, {
     #    'question_list': question_list,
     #})
-    context={'question_list':question_list}
+    context={'question_list':question_list,'taste':question_list_t,'price':question_list_p,'service':question_list_s,'clean':question_list_c,'air':question_list_a,'replier':question_list_r,'rep':replies,'sum':totalsorted,'rimg':repimg,'counter':star}
     #return HttpResponse(output+template.render(context))
     return render(request, 'dosirak/index.html', context)
 

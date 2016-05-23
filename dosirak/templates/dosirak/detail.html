@@ -9,7 +9,7 @@
     <!--link rel="stylesheet" href="{% static "bootstrap-3.3.6/css/bootstrap.css" %}"-->
     <link rel="stylesheet" href="{% static "bootstrap-3.3.6/css/bootstrap-responsive.css" %}">
     <script src="{% static "bootstrap-3.3.6/js/bootstrap.js" %}"></script>
-    <script src="{% static "bootstrap-3.3.6/js/bootstrap-formhelpers-phone.js" %}"></script>
+    <script src="{% static "bootstrap-3.3.6/dist/js/bootstrap-formhelpers.js" %}"></script>
     <!--script src="http://code.jquery.com/jquery-1.11.3.min.js"></script-->
     <!--meta name="viewport" content="width=device-width, initial-scale=1"-->
 </head>
@@ -106,7 +106,7 @@
         <br><br> <textarea form="post"  name="review" form="inform" cols="150" rows="9" autofocus required wrap="hard" maxlength="1000" autocomplete="on" placeholder="리뷰를  1000자 내로 마음 껏 꼭 써주셔야 합니다."></textarea>
            <input type="hidden" name="qid" value="{{ question.id }}"><!--겁팀장:<i>Underlying Upload Session URL was created by Google NoSQL Blobstore</i><br>-->
         <h2><input type="file" id="image"  name="image" accept="image/*"><input type="submit"  value="'{{ question.question_text }}' 리뷰 올리기"/>   <input type="reset" value="리뷰 초기화"></h2>
-           <br><h5>겁쟁이사자 통인시장 Powered by Django On Google Cloud Platform <br><br>Featured with Google App Engine+Google NoSQL Datastore via BlobStore API+Daum RoadView API</h5>
+           <br><h5>겁쟁이사자처럼x통인시장 Powered by Django On Google Cloud Platform <br><br>Featured with Google App Engine+Google NoSQL Datastore via BlobStore API+Daum RoadView API</h5>
            <h6>Developed Ⓓ by 김주현 2016 All Rights Reserved.</h6>
            <script type="text/javascript">
   </script>
