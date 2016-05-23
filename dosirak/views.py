@@ -175,7 +175,7 @@ def index(request):
         say=""
         for rp in replies:
             if x.id==rp.question_id:
-                say+=(rp.reple+" ")
+                say+=(rp.reple+", ")
         total.append([x.id,all,say,x.question_text])
     totalsorted=sorted(total,key=lambda total:-total[1] )
     #template = loader.get_template('dosirak/index.html')
