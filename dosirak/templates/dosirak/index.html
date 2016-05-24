@@ -3,7 +3,7 @@
 
 <head>
 
-    <meta charset="utf-8">
+    <meta charset="UTF-8" Content-Type="text/html">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
@@ -11,7 +11,7 @@
 
     <title>겁쟁이사자처럼:Sourced by 김주현</title>
     {% load static from staticfiles %}
-    {% load dictionary %}
+    {% load compute %}
     <!-- Bootstrap Core CSS -->
     <link href="{% static "bootstrap-3.3.6/css/bootstrap.min.css" %}" rel="stylesheet">
 
@@ -103,21 +103,18 @@
                     {% endfor %}
                 {% endif %}
                 <br>
-                <h2>현재 종합 평점 순 누적 된 도시락집 리뷰 </h2>
+                <h2>현재 종합 평점 순 누적 된 도시락집 리뷰 </h2><br>
                     {% if question_list %}
                          {% for q in sum%}
-                    {% for qq in q %}
-                        {% ifequal forloop.counter 3  %}
-                            {% if qq %}
-                        <h3><br><i>"{{ qq }}"</i></h3>
-                            {% endif %}
-                        {% endifequal %}
-                        {% endfor %}
-                    {% endfor %}
+                             {% if forloop.counter < 4 %}
+                        <h3><i>"{{ q.2 }}"</i></h3>
+                             {% endif %}
+                          {% endfor %}
+                        <h3><i>"···"</i></h3>
                     {% else %}
                         <p>No dosiraks are available.</p>
                     {% endif %}
-                    <br>                <br><br>
+                    <br>                <br>
 
                                 <h2>과연 어떤 도시락집 이야기들인지 들어 볼까요? </h2>
                 <h2><span class="glyphicon glyphicon-circle-arrow-down"></span></h2>
@@ -157,8 +154,8 @@
                           <p class="list-group-item-text">{{ question.review }}</p>
                       </div>
                       <div class="col-md-3 text-center">
-                          <h2> {{ question.replier }} <small>명이 평가함 </small></h2>
-                          <button type="button" class="btn btn-default btn-lg btn-block"> {{ question.pub_date }} </button>
+                          <h4> {{ question.replier }} <small>명이 평가함 </small></h4>
+                          <button type="button" class="btn btn-default btn-lg btn-block"><h5>{{ question.pub_date }}</h5></button>
                           <!--div class="stars">
                               <span class="glyphicon glyphicon-star"></span>
                               <span class="glyphicon glyphicon-star"></span>
@@ -210,7 +207,7 @@
                           <p class="list-group-item-text">{{ question.review }}</p>
                       </div>
                       <div class="col-md-3 text-center">
-                          <h2> {{ question.replier }} <small>명이 평가함 </small></h2>
+                          <h4> {{ question.replier }} <small>명이 평가함 </small></h4>
                           <button type="button" class="btn btn-default btn-lg btn-block"><span class="glyphicon glyphicon-thumbs-up"> {{ question.taste }}점</span></button>
                           <div class="stars">
                               {% for count in counter %}
@@ -261,11 +258,11 @@
                          </figure>
                         </div>
                       <div class="col-md-6">
-                          <h4 class="list-group-item-heading"><b>{{ forloop.counter }}위:</b> {{ question.question_text}} </h4>
+                          <h4 class="list-group-item-heading"><b>{{ forloop.counter }}위:</b> {{ question.question_text}}</h4>
                           <p class="list-group-item-text">{{ question.review }}</p>
                       </div>
                       <div class="col-md-3 text-center">
-                          <h2> {{ question.replier }} <small>명이 평가함 </small></h2>
+                          <h4> {{ question.replier }} <small>명이 평가함 </small></h4>
                           <button type="button" class="btn btn-default btn-lg btn-block"><span class="glyphicon glyphicon-thumbs-up"> {{ question.price }}점</span></button>
                           <div class="stars">
                               {% for count in counter %}
@@ -320,7 +317,7 @@
                           <p class="list-group-item-text">{{ question.review }}</p>
                       </div>
                       <div class="col-md-3 text-center">
-                          <h2> {{ question.replier }} <small>명이 평가함 </small></h2>
+                          <h4> {{ question.replier }} <small>명이 평가함 </small></h4>
                           <button type="button" class="btn btn-default btn-lg btn-block"><span class="glyphicon glyphicon-thumbs-up"> {{ question.service }}점</span></button>
                           <div class="stars">
                               {% for count in counter %}
@@ -375,7 +372,7 @@
                           <p class="list-group-item-text">{{ question.review }}</p>
                       </div>
                       <div class="col-md-3 text-center">
-                          <h2> {{ question.replier }} <small>명이 평가함 </small></h2>
+                          <h4> {{ question.replier }} <small>명이 평가함 </small></h4>
                           <button type="button" class="btn btn-default btn-lg btn-block"><span class="glyphicon glyphicon-thumbs-up"> {{ question.cleanness }}점</span></button>
                           <div class="stars">
                               {% for count in counter %}
@@ -430,7 +427,7 @@
                           <p class="list-group-item-text">{{ question.review }}</p>
                       </div>
                       <div class="col-md-3 text-center">
-                          <h2> {{ question.replier }} <small>명이 평가함 </small></h2>
+                          <h4> {{ question.replier }} <small>명이 평가함 </small></h4>
                           <button type="button" class="btn btn-default btn-lg btn-block"><span class="glyphicon glyphicon-thumbs-up"> {{ question.air }}점</span></button>
                           <div class="stars">
                               {% for count in counter %}
@@ -538,8 +535,13 @@
                           <p class="list-group-item-text">누적 평가: {{ question.2 }}</p>
                       </div>
                       <div class="col-md-3 text-center">
-                          <h2>누적 총점</h2>
-                          <button type="button" class="btn btn-default btn-lg btn-block"><span class="glyphicon glyphicon-thumbs-up"></span> {{ question.1 }}</button>
+                          <h4>누적 총점: {{ question.1|multiply:4}}%</h4>
+                          <div class="progress">
+                          <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="{{ question.1|multiply:4}}" aria-valuemin="0" aria-valuemax="100" style="width: {{ question.1|multiply:4}}%">
+                            <span class="sr-only">{{ question.1|multiply:4}}% Complete</span>
+                          </div>
+                        </div>
+                          <button type="button" class="btn btn-default btn-lg btn-block"><span class="glyphicon glyphicon-thumbs-up"></span> {{ question.1 }}/25</button>
                           <!--div class="stars">
                               <span class="glyphicon glyphicon-star"></span>
                               <span class="glyphicon glyphicon-star"></span>
