@@ -34,7 +34,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '-c&qt=71oi^e5s8(ene*$b89^#%*0xeve$x_trs91veok9#0h0'
+SECRET_KEY = ''
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -103,7 +103,7 @@ if os.getenv('SERVER_SOFTWARE', '').startswith('Google App Engine'):
             'HOST': '/cloudsql/tongin-1302:tongindb',
             'NAME': 'tongin',
             'USER': 'root',
-            'PASSWORD': '7321',
+            'PASSWORD': '',
         }
     }
 elif os.getenv('SETTINGS_MODE') == 'prod':
@@ -115,7 +115,7 @@ elif os.getenv('SETTINGS_MODE') == 'prod':
             'INSTANCE': '2001:4860:4864:1:21cc:f030:dede:9df5',
             'NAME': 'tongin',
             'USER': 'root',
-            'PASSWORD': '7321',
+            'PASSWORD': '',
         }
     }
 else:
@@ -124,7 +124,7 @@ else:
             'ENGINE': 'django.db.backends.mysql',
             'NAME': 'tongint',
             'USER': 'root',
-            'PASSWORD': '7321',
+            'PASSWORD': '',
             'HOST': 'localhost',
             'PORT': '3306',
         }
