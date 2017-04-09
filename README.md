@@ -8,5 +8,7 @@ Deployed @
 http://tongin-1302.appspot.com
 
 •	Contest of school entrepreneurship capstone design, Grand prize.
+
 • With real-time interacting Android App
+
 • Korean Patent Application No.10-2016-0080608
